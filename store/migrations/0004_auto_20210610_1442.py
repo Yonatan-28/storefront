@@ -10,9 +10,11 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name="address",
-            name="zip",
-            field=models.PositiveSmallIntegerField(null=True),
-        ),
+        migrations.RunSQL("""
+            INSERT INTO store_collection (title)
+            VALUES ('collection1')
+        """, """
+            DELETE FROM store_collection 
+            WHERE title='collection1'
+        """),
     ]

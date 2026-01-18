@@ -136,34 +136,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name="OrderItem",
-            fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                ("unit_price", models.DecimalField(decimal_places=2, max_digits=6)),
-                ("quantity", models.PositiveSmallIntegerField()),
-                (
-                    "cart",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.PROTECT, to="store.cart"
-                    ),
-                ),
-                (
-                    "order",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.PROTECT, to="store.order"
-                    ),
-                ),
-            ],
-        ),
-        migrations.CreateModel(
             name="Product",
             fields=[
                 (
@@ -179,7 +151,7 @@ class Migration(migrations.Migration):
                 ("description", models.TextField()),
                 ("price", models.DecimalField(decimal_places=2, max_digits=6)),
                 ("inventory", models.IntegerField()),
-                ("lastupdate", models.DateTimeField(auto_now=True)),
+                ("last_update", models.DateTimeField(auto_now=True)),
                 (
                     "collection",
                     models.ForeignKey(
@@ -188,6 +160,34 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("promotions", models.ManyToManyField(to="store.promotion")),
+            ],
+        ),
+        migrations.CreateModel(
+            name="OrderItem",
+            fields=[
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("unit_price", models.DecimalField(decimal_places=2, max_digits=6)),
+                ("quantity", models.PositiveSmallIntegerField()),
+                (
+                    "order",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT, to="store.order"
+                    ),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT, to="store.product"
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
@@ -211,6 +211,9 @@ class Migration(migrations.Migration):
                         serialize=False,
                         verbose_name="ID",
                     ),
+                ),
+                ("quantity",
+                    models.PositiveSmallIntegerField()
                 ),
                 (
                     "cart",
