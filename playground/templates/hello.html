@@ -5,14 +5,16 @@
         {% else %} 
         <h1>Hello World</h1>
          {% endif%}
-        <!--<ul>
-            {% for product in products %}
-            <li>
-                 {{product.product__title}} 
-                 {{ product.id }} - {{ product.customer.first_name }}
-            </li>
-            {% endfor%}
-        </ul>-->
-
+           <!-- {% comment %}
+           <ul>
+              {% for product in products %}
+              <li>
+                  {{product.title}} 
+              </li>
+              {% endfor%}
+            </ul>
+           {% endcomment %} -->
+         {{ order }}
+         <!-- {{ tags }} -->
     </body>
 </html> 
