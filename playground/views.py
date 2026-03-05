@@ -5,7 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q, F, Value, Func, ExpressionWrapper
 from django.db.models.functions import Concat
 from django.db.models.aggregates import Count, Min
-from store.models import Product, OrderItem, Order, Customer
+from store.models import Product, OrderItem, Order, Customer, Collection
 from tags.models import TaggedItems
 
 # Create your views here.
@@ -39,8 +39,27 @@ def say_hello(request):
     # order = Product.objects.annotate(discount = ExpressionWrapper(F('unit_price')* 0.8, output_field=DecimalField()))
     # return render(request, 'hello.html', {"name": "Yon", "order": order})
 
-    Content_type = ContentType.objects.get_for_model(Product)
-    tags = TaggedItems.objects.select_related('tag').filter(content_type=Content_type, object_id=1)
+    # Content_type = ContentType.objects.get_for_model(Product)
+    # tags = TaggedItems.objects.select_related('tag').filter(content_type=Content_type, object_id=1)
 
-    return render(request, 'hello.html', {"name": "Yon", "tags": tags})
+    ## insertion
+    # collection = Collection()
+    # collection.title = 'Tempo'
+    # collection.featured_product = Product(pk=1)
+    # collection.save()
+    ## or
+    # collection = Collection.objects.create(titl='Temp0', featured_product_id = 1)
+
+    ## update
+    # not using first option because sets title to '' by defauly
+    ## or
+    # Collection.objects.filter(pk=1).update( featured_product_id = None)
+
+    # # delete
+    # collection = Collection(pk=11)
+    # collection.delete()
+    # # or
+    # Collection.objects.filter(pk=11).delete()
+
+    return render(request, 'hello.html', {"name": "Yon"}) #, "tags": tags})
     
