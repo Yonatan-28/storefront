@@ -9,6 +9,10 @@ class Collection(models.Model):
     title = models.CharField(max_length=255)
     featured_product = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True, related_name= '+') # 'Product' because to refrence table by finding lower parts
     # related_name = '+' because it tells django to create a new relationship(the other side of reverse relationship)
+    def __str__(self):
+        return self.title
+    class Meta:
+        ordering=['title']
 
 class Product(models.Model):
     title = models.CharField(max_length=255)
@@ -20,6 +24,12 @@ class Product(models.Model):
     collection = models.ForeignKey(Collection, on_delete=models.PROTECT)
     promotions = models.ManyToManyField(Promotion) #related_name = 'products' to change the column name on other referenced table
     
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        ordering = ['title']
+
 class Customer(models.Model):
     MEMBERSHIP_BRONZE = 'B'
     MEMBERSHIP_SILVER = 'S'
